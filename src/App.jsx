@@ -46,7 +46,7 @@ function App() {
 
       <section id="home" className="hero">
         <div className="hero-copy">
-          <h1>COMPUTER<br />SCIENCE &amp;<br />ENGINEERING</h1>
+          <h1 className="home-h1">COMPUTER<br />SCIENCE &amp;<br />ENGINEERING</h1>
 
           <p>
             A central space for students, faculty and alumni to stay connected
