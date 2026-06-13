@@ -58,9 +58,6 @@ function App() {
               {item}
             </a>
           ))}
-          <div className="nav-menu-footer">
-            <img src={csaLogo} alt="CSA Logo" className="nav-footer-logo" />
-          </div>
         </nav>
 
         <div className="topbar-actions">
