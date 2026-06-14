@@ -60,7 +60,6 @@ function App() {
         </nav>
 
         <div className="topbar-actions">
-          
           <button
             className={`menu-toggle ${isMenuOpen ? "is-active" : ""}`}
             onClick={toggleMenu}
@@ -76,13 +75,15 @@ function App() {
 
       <section id="home" className="hero">
         <div className="hero-copy">
-          <h1 className="home-h1">
-            COMPUTER
-            <br />
-            SCIENCE &amp;
-            <br />
-            ENGINEERING
-          </h1>
+          <div className="hero-text">
+            <h1 className="home-h1">
+              COMPUTER
+              <br />
+              SCIENCE &amp;
+              <br />
+              ENGINEERING
+            </h1>
+          </div>
 
           <p>
             A central space for students, faculty and alumni to stay connected
