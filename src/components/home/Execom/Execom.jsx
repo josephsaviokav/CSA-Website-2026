@@ -70,9 +70,22 @@ export default function Execom() {
                 <div className="execom-avatar">
                   <div className="avatar-placeholder">
                     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="50" cy="50" r="50" fill="#3a2a32"/>
-                      <circle cx="50" cy="38" r="18" fill="#e8c9a8"/>
-                      <ellipse cx="50" cy="85" rx="28" ry="25" fill="#e94e7a"/>
+                      <defs>
+                        <linearGradient id={`avatar-grad-${index}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#4a3a42" />
+                          <stop offset="100%" stopColor="#3a2a32" />
+                        </linearGradient>
+                        <linearGradient id={`skin-grad-${index}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#f0d5b8" />
+                          <stop offset="100%" stopColor="#e0c5a8" />
+                        </linearGradient>
+                      </defs>
+                      <circle cx="50" cy="50" r="50" fill={`url(#avatar-grad-${index})`}/>
+                      <circle cx="50" cy="35" r="20" fill={`url(#skin-grad-${index})`}/>
+                      <ellipse cx="50" cy="85" rx="30" ry="28" fill={index % 2 === 0 ? '#e94e7a' : '#4a5568'}/>
+                      <circle cx="42" cy="33" r="2" fill="#2d3748"/>
+                      <circle cx="58" cy="33" r="2" fill="#2d3748"/>
+                      <path d="M45 40 Q50 44 55 40" stroke="#2d3748" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
                     </svg>
                   </div>
                 </div>

@@ -1,5 +1,5 @@
 import './Gallery.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 const galleryImages = [
   { id: 1, alt: 'Group photo 1' },
@@ -13,27 +13,38 @@ const galleryImages = [
 ];
 
 export default function Gallery() {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const duplicatedImages = [...galleryImages, ...galleryImages];
 
-  const openLightbox = (img) => {
-    setSelectedImage(img);
+  const openLightbox = (index) => {
+    setSelectedIndex(index);
   };
 
   const closeLightbox = () => {
-    setSelectedImage(null);
+    setSelectedIndex(null);
   };
+
+  const goToPrev = useCallback(() => {
+    setSelectedIndex((prev) => (prev > 0 ? prev - 1 : galleryImages.length - 1));
+  }, []);
+
+  const goToNext = useCallback(() => {
+    setSelectedIndex((prev) => (prev < galleryImages.length - 1 ? prev + 1 : 0));
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape' && selectedImage) {
-        closeLightbox();
-      }
+      if (selectedIndex === null) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') goToPrev();
+      if (e.key === 'ArrowRight') goToNext();
     };
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [selectedImage]);
+  }, [selectedIndex, goToPrev, goToNext]);
+
+  const currentImage = selectedIndex !== null ? galleryImages[selectedIndex] : null;
 
   return (
     <section className="gallery-section">
@@ -60,11 +71,17 @@ export default function Gallery() {
             <div 
               className="gallery-card" 
               key={`${img.id}-${index}`}
-              onClick={() => openLightbox(img)}
+              onClick={() => openLightbox(img.id - 1)}
             >
               <div className="gallery-image-placeholder">
                 <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="400" height="300" fill="#5a4a52"/>
+                  <defs>
+                    <linearGradient id={`grad-${img.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#5a4a52" />
+                      <stop offset="100%" stopColor="#4a3a42" />
+                    </linearGradient>
+                  </defs>
+                  <rect width="400" height="300" fill={`url(#grad-${img.id})`}/>
                   <rect x="20" y="20" width="360" height="260" rx="12" fill="#6b5c63" opacity="0.6"/>
                   <circle cx="120" cy="120" r="40" fill="#7a6b72"/>
                   <circle cx="200" cy="100" r="35" fill="#8a7b82"/>
@@ -78,27 +95,65 @@ export default function Gallery() {
         </div>
       </div>
 
-      {selectedImage && (
+      {currentImage && (
         <div className="lightbox-overlay" onClick={closeLightbox}>
-          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
-            <button className="lightbox-close" onClick={closeLightbox} aria-label="Close lightbox">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-            </button>
-            <div className="lightbox-image">
-              <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
-                <rect width="800" height="600" fill="#5a4a52"/>
-                <rect x="40" y="40" width="720" height="520" rx="20" fill="#6b5c63" opacity="0.6"/>
-                <circle cx="200" cy="200" r="80" fill="#7a6b72"/>
-                <circle cx="400" cy="180" r="70" fill="#8a7b82"/>
-                <circle cx="600" cy="200" r="80" fill="#7a6b72"/>
-                <circle cx="300" cy="380" r="76" fill="#8a7b82"/>
-                <circle cx="500" cy="380" r="76" fill="#7a6b72"/>
-              </svg>
+          <div className="lightbox-container" onClick={(e) => e.stopPropagation()}>
+            <div className="lightbox-header">
+              <span className="lightbox-counter">
+                {selectedIndex + 1} / {galleryImages.length}
+              </span>
+              <button className="lightbox-close" onClick={closeLightbox} aria-label="Close lightbox">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
             </div>
-            <p className="lightbox-caption">{selectedImage.alt}</p>
+
+            <div className="lightbox-body">
+              <button className="lightbox-nav lightbox-nav-prev" onClick={goToPrev} aria-label="Previous image">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
+
+              <div className="lightbox-image-container">
+                <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" className="lightbox-image">
+                  <defs>
+                    <linearGradient id="lb-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#5a4a52" />
+                      <stop offset="100%" stopColor="#4a3a42" />
+                    </linearGradient>
+                    <linearGradient id="lb-circle-1" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#8a7b82" />
+                      <stop offset="100%" stopColor="#7a6b72" />
+                    </linearGradient>
+                    <linearGradient id="lb-circle-2" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#9a8b92" />
+                      <stop offset="100%" stopColor="#8a7b82" />
+                    </linearGradient>
+                  </defs>
+                  <rect width="1200" height="800" fill="url(#lb-grad)"/>
+                  <rect x="40" y="40" width="1120" height="720" rx="16" fill="#6b5c63" opacity="0.4"/>
+                  <circle cx="240" cy="280" r="100" fill="url(#lb-circle-1)"/>
+                  <circle cx="520" cy="240" r="85" fill="url(#lb-circle-2)"/>
+                  <circle cx="800" cy="280" r="100" fill="url(#lb-circle-1)"/>
+                  <circle cx="380" cy="520" r="90" fill="url(#lb-circle-2)"/>
+                  <circle cx="680" cy="520" r="90" fill="url(#lb-circle-1)"/>
+                </svg>
+              </div>
+
+              <button className="lightbox-nav lightbox-nav-next" onClick={goToNext} aria-label="Next image">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+            </div>
+
+            <div className="lightbox-footer">
+              <h3 className="lightbox-title">{currentImage.alt}</h3>
+              <p className="lightbox-subtitle">CSA Event</p>
+            </div>
           </div>
         </div>
       )}
