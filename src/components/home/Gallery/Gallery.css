@@ -23,7 +23,7 @@
 .dinosaur-logo-gallery {
   position: absolute;
   right: 18%;
-  top: -10px;
+  top: 11px;
   width: 35px;
 }
 
@@ -51,7 +51,7 @@
   height: 2px;
   width: 100%;
   position: absolute;
-  top: -2px;
+  top:-12px;
 }
 
 .gallery-border-bottom {
@@ -59,14 +59,14 @@
   height: 2px;
   width: 100%;
   position: absolute;
-  bottom: -5px;
+  bottom: -25px;
 }
 
 .gallery-title {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 80px;
+  font-size: 70px;
   font-weight: 900;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.08em;
   text-align: center;
   margin: 0;
   padding: 0 40px;
@@ -81,11 +81,15 @@
 }
 
 .gallery-line-left {
-  margin-right: -44px;
+  position: relative;
+  top: 15px;
+  margin-right: -46px;
 }
 
 .gallery-line-right {
-  margin-left: -40px;
+   position: relative;
+  top: 15px;
+  margin-left: -31px;
 }
 
 .gallery-carousel-wrapper {
@@ -291,11 +295,13 @@
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
+@media (min-width: 768px) {
   .gallery-title {
-    font-size: 60px;
+    font-size: 100px;
   }
+}
 
+@media (max-width: 1024px) {
   .dinosaur-logo-gallery {
     right: 10%;
     width: 30px;
@@ -304,6 +310,12 @@
   .gallery-card {
     width: 240px;
     height: 170px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery-title {
+    font-size: 130px;
   }
 }
 
@@ -331,7 +343,7 @@
   }
 
   .gallery-title {
-    font-size: 48px;
+    font-size: 50px;
     padding: 0 20px;
   }
 

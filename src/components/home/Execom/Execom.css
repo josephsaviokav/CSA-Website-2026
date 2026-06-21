@@ -63,9 +63,9 @@
 
 .execom-title {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 80px;
+  font-size: 70px;
   font-weight: 900;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.08em;
   text-align: center;
   margin: 0;
   padding: 0 40px;
@@ -205,11 +205,19 @@
   flex-shrink: 0;
 }
 
-@media (max-width: 1024px) {
+@media (min-width: 768px) {
   .execom-title {
-    font-size: 60px;
+    font-size: 100px;
   }
+}
 
+@media (min-width: 1024px) {
+  .execom-title {
+    font-size: 130px;
+  }
+}
+
+@media (max-width: 1024px) {
   .dinosaur-logo-execom {
     right: 10%;
     width: 30px;
@@ -230,7 +238,7 @@
   }
 
   .execom-title {
-    font-size: 48px;
+    font-size: 50px;
     padding: 0 20px;
   }
 
