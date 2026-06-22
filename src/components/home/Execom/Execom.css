@@ -22,7 +22,7 @@
 .dinosaur-logo-execom {
   position: absolute;
   right: 20%;
-  top: -10px;
+  top: 15px;
   width: 35px;
 }
 
@@ -50,7 +50,7 @@
   height: 2px;
   width: 100%;
   position: absolute;
-  top: -2px;
+  top: -10px;
 }
 
 .execom-border-bottom {
@@ -58,12 +58,12 @@
   height: 2px;
   width: 100%;
   position: absolute;
-  bottom: -5px;
+  bottom: -25px;
 }
 
 .execom-title {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 70px;
+  font-size: 80px;
   font-weight: 900;
   letter-spacing: -0.08em;
   text-align: center;
@@ -80,11 +80,16 @@
 }
 
 .execom-line-left {
-  margin-right: -6px;
+  margin-right: -47px;
+  position: relative;
+  top: 15px;
 }
 
 .execom-line-right {
-  margin-left: 0px;
+  margin-left: -35px;
+
+  position: relative;
+  top: 15px;
 }
 
 .execom-carousel-wrapper {
