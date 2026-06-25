@@ -359,13 +359,13 @@
   }
 
   .gallery-line-left {
-    margin-right: -30px;
-    top: 10px;
+    margin-right: -22px;
+    top: 6px;
   }
 
   .gallery-line-right {
     margin-left: -18px;
-    top: 10px;
+    top: 6px;
   }
 
   .gallery-border-frame {
@@ -373,17 +373,17 @@
   }
 
   .gallery-border-top {
-    top: -8px;
+    top: -2px;
   }
 
   .gallery-border-bottom {
-    bottom: -18px;
+    bottom: -2px;
   }
 
   .dinosaur-logo-gallery {
     right: 5%;
     width: 24px;
-    top: 6px;
+    top: -20px;
   }
 
   .gallery-carousel-wrapper {
